@@ -1,0 +1,566 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+
+<html>
+<head>
+<meta content="text/html; charset=windows-1251" http-equiv="Content-Type">
+<title>Математическая клавиатура</title>
+</head>
+
+<script language="javascript">
+
+var letters=[
+'&#8320;','&#8321;','&#8322;','&#8323;','&#8324;','&#8325;','&#8326;','&#8327;','&#8328;','&#8329;', //0x
+'&#8330;','&#8331;','&#8332;','&#8333;','&#8334;','&#8336;','&#8337;','&#8338;','&#8339;','&times;', //1x
+'&#8304;','&sup1;','&sup2;','&sup3;','&#8308;','&#8309;','&#8310;','&#8311;','&#8312;','&#8313;', //2x
+'&#8314;','&#8315;','&#8316;','&#8317;','&#8318;','&#8305;','&#8319;','&deg;','&ordf;','', //3x
+'+','&minus;','/','&middot;','&plusmn;','&#8723;','&and;','&or;','&not;','&cap;', //4x
+'&cup;','&bull;','&#8728;','&#8727;','&#8766;','&#9651;','&#8741;','&#8742;','','', //5x
+'&alpha;','&beta;','&gamma;','&delta;','&epsilon;','&zeta;','&eta;','&thetasym;','&iota;','&#1008;', //6x
+'&lambda;','&mu;','&nu;','&xi;','&omicron;','&pi;','&rho;','&sigma;','&tau;','&upsilon;', //7x
+'&phi;','&chi;','&psi;','&omega;','&kappa;','&sigmaf;','&theta;','&piv;','&#1009;','', //8x
+'&Alpha;','&Beta;','&Gamma;','&Delta;','&Epsilon;','&Zeta;','&Eta;','&Theta;','&Iota;','&Kappa;', //9x
+'&Lambda;','&Mu;','&Nu;','&Xi;','&Omicron;','&Pi;','&Rho;','&Sigma;','&Tau;','&#978;', //10x
+'&Phi;','&Chi;','&Psi;','&Omega;','','','','','','', //11x
+'&prime;','&Prime;','&#8244;','&#8279;','&amp;','&sum;','&prod;','&int;','&#8748;','&#8749;', //12x
+'&#8750;','&#8751;','&#8752;','&radic;','&#8731;','&#8732;','=','&ne;','&lt;','&gt;', //13x
+'&le;','&ge;','&#8806;','&#8807;','&#8808;','&#8809;','&asymp;','&equiv;','&#8802;','&isin;', //14x
+'&#8715;','&#8713;','&#8716;','&sub;','&sup;','&sube;','&supe;','&#8285;','|','&#8740;', //15x
+'&perp;','&sim;','&#8771;','&cong;','&larr;','&rarr;','&harr;','&uarr;','&darr;','&#8597;', //16x
+'&part;','&fnof;','&#295;','&#8467;','&frasl;','&frac12;','&#8531;','&#8532;','&frac14;','&frac34;', //17x
+'&#8533;','&#8534;','&#8535;','&#8536;','&#8537;','&#8538;','&ang;','&#8737;','&#8738;','&forall;', //18x
+'&exist;','&empty;','&#8469;','&#8484;','&#8474;','&#8477;','&#8450;','&#8501;','&infin;','&#688;', //19x
+'&#690;','&ordm;','&#691;','&#695;','&#696;','&#739;','&image;','&real;','&nabla;','&#8720;', //20x
+'&#8598;','&#8599;','&#8600;','&#8601;','&#8612;','&#8614;','&#8613;','&#8615;','&#8769;','&#8777;', //21x
+'&#7497;','&#7495;','&#7496;','&#737;','&#7504;','&#738;','&#7511;','&weierp;','&#8810;','&#8811;', //22x
+'&#8818;','&#8819;','&lArr;','&rArr;','&hArr;','&uArr;','&dArr;','&#8661;','&#8662;','&#8663;', //23x
+'&#8664;','&#8665;','&hellip;','&#8943;','&#8942;','&#8944;','&#8945;','&#8708;','&#10502;','&#10503;', //24x
+'&#9115;','&#9118;','&#9116;','&#9119;','&#9117;','&#9120;','&nbsp;','&Aring;','&permil;','—', //25x
+'&lfloor;','&rfloor;','&lceil;','&rceil;','&lang;','&rang;','&laquo;','&raquo;','&#8836;','&#8837;', //26x
+'&#8842;','&#8843;','&#9121;','&#9122;','&#9123;','&#9124;','&#9125;','&#9126;','&#9127;','&#9128;', //27x
+'&#9129;','&#9131;','&#9132;','&#9133;','','','','','','', //28x
+'&#7468;','&#7470;','&#7472;','&#7473;','&#7475;','&#7476;','&#7477;','&#7478;','&#7479;','&#7480;', //29x
+'&#7481;','&#7482;','&#7484;','&#7486;','&#7487;','&#7488;','&#7489;','&#7490;','&#7584;','&#7586;', //30x
+'&#7503;','&#7510;','&#7512;','&#7515;','&#7611;','&#7517;','&#7518;','&#7519;','&#7520;','&#7521;', //31x
+'&#7580;','&#7522;','&#7523;','&#7524;','&#7525;','&#7526;','&#7527;','&#7528;','&#7529;','&#7530;', //32x
+'&#9119;','&#9122;','&#9125;','&#9130;','','','','','','', //33x
+'','','','','','','','','','', //34x
+'','','','','','','','','','', //35x
+'','','','','','','','','','', //36x
+'','','','','','','','','','', //37x
+'','','','','','','','','','', //38x
+'','','','','','','','','',''  //39x
+];
+
+var kbHTML='';
+
+function make_table() {
+kbHTML=document.getElementById('kb').innerHTML;
+window.open('mktab.htm');
+}
+
+function make_italic() {
+var text=document.forms[0].text.value;
+var sel_start=document.forms[0].text.selectionStart;
+var sel_end=document.forms[0].text.selectionEnd;
+var ntext=text.substring(0,sel_start)+'<i>'+text.substring(sel_start,sel_end)+'</i>'+text.substring(sel_end,text.length);
+document.forms[0].text.value=ntext;
+document.forms[0].text.selectionStart=sel_end+7;
+document.forms[0].text.selectionEnd=sel_end+7;
+preview();
+document.forms[0].text.focus();
+return true;
+} ;
+
+function make_bold() {
+var text=document.forms[0].text.value;
+var sel_start=document.forms[0].text.selectionStart;
+var sel_end=document.forms[0].text.selectionEnd;
+var ntext=text.substring(0,sel_start)+'<b>'+text.substring(sel_start,sel_end)+'</b>'+text.substring(sel_end,text.length);
+document.forms[0].text.value=ntext;
+document.forms[0].text.selectionStart=sel_end+7;
+document.forms[0].text.selectionEnd=sel_end+7;
+preview();
+document.forms[0].text.focus();
+return true;
+} ;
+
+function make_s_font() {
+var text=document.forms[0].text.value;
+var sel_start=document.forms[0].text.selectionStart;
+var sel_end=document.forms[0].text.selectionEnd;
+var ntext=text.substring(0,sel_start)+'<s>'+text.substring(sel_start,sel_end)+'</s>'+text.substring(sel_end,text.length);
+document.forms[0].text.value=ntext;
+document.forms[0].text.selectionStart=sel_end+7;
+document.forms[0].text.selectionEnd=sel_end+7;
+preview();
+document.forms[0].text.focus();
+return true;
+} ;
+
+function make_under() {
+var text=document.forms[0].text.value;
+var sel_start=document.forms[0].text.selectionStart;
+var sel_end=document.forms[0].text.selectionEnd;
+var ntext=text.substring(0,sel_start)+'<u>'+text.substring(sel_start,sel_end)+'</u>'+text.substring(sel_end,text.length);
+document.forms[0].text.value=ntext;
+document.forms[0].text.selectionStart=sel_end+7;
+document.forms[0].text.selectionEnd=sel_end+7;
+preview();
+document.forms[0].text.focus();
+return true;
+} ;
+
+function make_bold_italic() {
+var text=document.forms[0].text.value;
+var sel_start=document.forms[0].text.selectionStart;
+var sel_end=document.forms[0].text.selectionEnd;
+var ntext=text.substring(0,sel_start)+'<b><i>'+text.substring(sel_start,sel_end)+'</i></b>'+text.substring(sel_end,text.length);
+document.forms[0].text.value=ntext;
+document.forms[0].text.selectionStart=sel_end+14;
+document.forms[0].text.selectionEnd=sel_end+14;
+preview();
+document.forms[0].text.focus();
+return true;
+} ;
+
+function addLetter(n) {
+var text=document.forms[0].text.value;
+var sel_start=document.forms[0].text.selectionStart;
+var sel_end=document.forms[0].text.selectionEnd;
+var ntext=text.substring(0,sel_start)+letters[n]+text.substring(sel_end,text.length);
+document.forms[0].text.value=ntext;
+document.forms[0].text.selectionStart=sel_start+letters[n].length;
+document.forms[0].text.selectionEnd=sel_start+letters[n].length;
+preview();
+document.forms[0].text.focus();
+return true;
+} ;
+
+function look_for_short() {
+var text=document.forms[0].text.value;
+var pos=document.forms[0].text.selectionStart;
+var zam=false;
+var prev=text.substring(pos-1,pos);
+var pprev=text.substring(pos-2,pos-1);
+if (pprev=='_') if ((prev=='1')||(prev=='2')||(prev=='3')||(prev=='4')||(prev=='5')||(prev=='6')||(prev=='7')||(prev=='8')||(prev=='9')||(prev=='0')) { text=text.substring(0,pos-2)+'&#832'+prev+';'+text.substring(pos,text.length); pos=pos+5; zam=true; }
+if (pprev=='^') {
+if ((prev=='1')||(prev=='2')||(prev=='3')) { text=text.substring(0,pos-2)+'&sup'+prev+';'+text.substring(pos,text.length); pos=pos+4; zam=true; }
+if (prev=='4') { text=text.substring(0,pos-2)+'&#8308;'+text.substring(pos,text.length); pos=pos+5; zam=true; }
+if (prev=='5') { text=text.substring(0,pos-2)+'&#8309;'+text.substring(pos,text.length); pos=pos+5; zam=true; }
+if (prev=='6') { text=text.substring(0,pos-2)+'&#8310;'+text.substring(pos,text.length); pos=pos+5; zam=true; }
+if (prev=='7') { text=text.substring(0,pos-2)+'&#8311;'+text.substring(pos,text.length); pos=pos+5; zam=true; }
+if (prev=='8') { text=text.substring(0,pos-2)+'&#8312;'+text.substring(pos,text.length); pos=pos+5; zam=true; }
+if (prev=='9') { text=text.substring(0,pos-2)+'&#8313;'+text.substring(pos,text.length); pos=pos+5; zam=true; }
+if (prev=='0') { text=text.substring(0,pos-2)+'&#8304;'+text.substring(pos,text.length); pos=pos+5; zam=true; }
+}
+if ((pprev=='\-')&&(prev=='\-')) { text=text.substring(0,pos-2)+'—'+text.substring(pos,text.length); pos=pos-1; zam=true; }
+if ((pprev=='\\')&&(prev=='a')) { text=text.substring(0,pos-2)+'&alpha;'+text.substring(pos,text.length); pos=pos+5; zam=true; }
+if ((pprev=='\\')&&(prev=='b')) { text=text.substring(0,pos-2)+'&beta;'+text.substring(pos,text.length); pos=pos+4; zam=true; }
+if ((pprev=='\\')&&(prev=='g')) { text=text.substring(0,pos-2)+'&gamma;'+text.substring(pos,text.length); pos=pos+5; zam=true; }
+if ((pprev=='\\')&&(prev=='\-')) { text=text.substring(0,pos-2)+'&minus;'+text.substring(pos,text.length); pos=pos+5; zam=true; }
+if ((pprev=='\\')&&(prev=='p')) { text=text.substring(0,pos-2)+'&pi;'+text.substring(pos,text.length); pos=pos+2; zam=true; }
+if ((pprev=='\\')&&(prev=='f')) { text=text.substring(0,pos-2)+'&phi;'+text.substring(pos,text.length); pos=pos+3; zam=true; }
+if ((pprev=='\\')&&(prev=='\*')) { text=text.substring(0,pos-2)+'&middot;'+text.substring(pos,text.length); pos=pos+6; zam=true; }
+if ((pprev=='<')&&(prev=='=')) { text=text.substring(0,pos-2)+'&le;'+text.substring(pos,text.length); pos=pos+2; zam=true; }
+if ((pprev=='>')&&(prev=='=')) { text=text.substring(0,pos-2)+'&ge;'+text.substring(pos,text.length); pos=pos+2; zam=true; }
+if ((pprev=='<')&&(prev=='<')) { text=text.substring(0,pos-2)+'&lt;'+text.substring(pos,text.length); pos=pos+2; zam=true; }
+if ((pprev=='>')&&(prev=='>')) { text=text.substring(0,pos-2)+'&gt;'+text.substring(pos,text.length); pos=pos+2; zam=true; }
+if ((pprev=='\\')&&(prev=='_')) { text=text.substring(0,pos-2)+'&perp;'+text.substring(pos,text.length); pos=pos+4; zam=true; }
+if ((pprev=='/')&&(prev=='_')) { text=text.substring(0,pos-2)+'&ang;'+text.substring(pos,text.length); pos=pos+3; zam=true; }
+if (zam) { document.forms[0].text.value=text; document.forms[0].text.selectionStart=pos; document.forms[0].text.selectionEnd=pos; }
+}
+
+function preview() {
+var thetext=document.forms[0].text.value;
+var pretext='';
+for (i=0;i<thetext.length;i++) {
+	var symb=thetext.substring(i,i+1);
+	if (symb=='\n') pretext+='<br>'; else pretext+=symb;
+	} ;
+if (pretext!='')
+ 	document.getElementById('preview_tab').bgColor='#CCCCCC'; else
+ 	document.getElementById('preview_tab').bgColor='#FFFFFF';
+document.getElementById('preview').innerHTML=pretext;
+return true; } ;
+
+function test_button(e) {
+var code;
+var e = window.event;
+if (e.keyCode) code = e.keyCode;
+else if (e.which) code = e.which;
+if (code==121) { make_italic(); document.forms[0].text.focus(); }
+if (code==117) { addLetter(256); document.forms[0].text.focus(); }
+setTimeout('look_for_short();',10);
+}
+
+</script>
+
+<style>
+.b30 { color: black; width: 20px; background-color: #CCCCCC; font-family: sans-serif,Tahoma,Arial; font-size: 15px!important;}
+.b30a { color: black; width: 20px; background-color: #CCCCCC; font-family: sans-serif,Tahoma,Arial; font-size: 15px!important;}
+.b80 { color: black; width: 80px; background-color: #CCCCCC; font-family: sans-serif; font-size: 12px;}
+.b80i { color: black; width: 80px; background-color: #CCCCCC; font-family: sans-serif; font-size: 12px; font-style:italic;}
+.b80b { color: black; width: 80px; background-color: #CCCCCC; font-family: sans-serif; font-size: 12px; font-weight:bold;}
+.b80bi { color: black; width: 80px; background-color: #CCCCCC; font-family: sans-serif; font-size: 12px; font-weight:bold; font-style:italic;}
+.b80u { color: black; width: 80px; background-color: #CCCCCC; font-family: sans-serif; font-size: 12px; text-decoration: none;}
+.b80s { color: black; width: 80px; background-color: #CCCCCC; font-family: sans-serif; font-size: 12px; text-decoration: none;}
+.mes { color: #777777; font-family: sans-serif,Tahoma,Arial; font-size: 8px; line-height:1;}
+.pre { color: black; font-family: sans-serif,Tahoma,Arial; font-size: 15px; line-height:1.2; margin:0px;}
+input{ font-size:15px; font-family: sans-serif,Tahoma,Arial; }
+textarea{ font-size:15px; font-family: sans-serif,Tahoma,Arial; }
+table { margin:0px; padding:0px; border: 0; border-collapse: collapse; }
+td { margin:0px; padding:0px; text-align:left; }
+tr { margin:0px; padding:0px; }
+hr.r { margin:2px 0px 0px; padding:0px; width:0px; color:white; }
+</style>
+
+<body bgcolor="#FFFFFF" leftmargin=4 topmargin=10 marginwidth=4 marginheight=4>
+<center>
+<table width="1000" cellspacing="0" cellpadding="0" border="0"><tr><td align="center">
+<form><textarea rows="8" cols="5000" style="width:100%;" name="text" wrap="virtual"
+onchange="preview();"
+onblur="preview();"
+onkeydown="test_button(); preview();"
+onkeyup="preview();"
+></textarea></form></td>
+<td>&nbsp;&nbsp;</td>
+<td valign="top" align="right">
+<input type="button" title="Создать новую или редактировать выделенную таблицу" value="Таблица" width="80" onClick="make_table();"; class="b80"><br><input type="button" title="Курсив" value="Курсив" width="80" onClick="make_italic();"; class="b80i"><br><input type="button" title="Жирный" value="Жирный" width="80" onClick="make_bold();"; class="b80b"><br><input type="button" title="Жирный курсив" value="Ж. курсив" width="80" onClick="make_bold_italic();"; class="b80bi"><br><input type="button" title="Подчеркнуть" value="Подчеркнуть" width="80" onClick="make_under();"; class="b80u"><br><input type="button" title="Зачеркнуть" value="Зачеркнуть" width="80" onClick="make_s_font();"; class="b80s"></td>
+</tr>
+<tr><td></td><td><hr class="r"></td></tr>
+<tr><td colspan="3" align="left">
+<table cellspacing="0" cellpadding="0" border="0" id="kb">
+<tr><td class="mes">Нижние индексы:</td>
+<td>
+<input type="button" title="0 в нижнем индексе" value="&#x2080;" onClick="addLetter(0);" width="20" class="b30"
+><input type="button" title="1 в нижнем индексе" value="&#x2081;" onClick="addLetter(1);" width="20" class="b30"
+><input type="button" title="2 в нижнем индексе" value="&#x2082;" onClick="addLetter(2);" width="20" class="b30"
+><input type="button" title="3 в нижнем индексе" value="&#x2083;" onClick="addLetter(3);" width="20" class="b30"
+><input type="button" title="4 в нижнем индексе" value="&#x2084;" onClick="addLetter(4);" width="20" class="b30"
+><input type="button" title="5 в нижнем индексе" value="&#x2085;" onClick="addLetter(5);" width="20" class="b30"
+><input type="button" title="6 в нижнем индексе" value="&#x2086;" onClick="addLetter(6);" width="20" class="b30"
+><input type="button" title="7 в нижнем индексе" value="&#x2087;" onClick="addLetter(7);" width="20" class="b30"
+><input type="button" title="8 в нижнем индексе" value="&#x2088;" onClick="addLetter(8);" width="20" class="b30"
+><input type="button" title="9 в нижнем индексе" value="&#x2089;" onClick="addLetter(9);" width="20" class="b30"
+><input type="button" title="плюс в нижнем индексе" value="&#x208A;" onClick="addLetter(10);" width="20" class="b30"
+><input type="button" title="минус в нижнем индексе" value="&#x208B;" onClick="addLetter(11);" width="20" class="b30"
+><input type="button" title="равно в нижнем индексе" value="&#x208C;" onClick="addLetter(12);" width="20" class="b30"
+><input type="button" title="левая скобка в нижнем индексе" value="&#x208D;" onClick="addLetter(13);" width="20" class="b30"
+><input type="button" title="правая скобка в нижнем индексе" value="&#x208E;" onClick="addLetter(14);" width="20" class="b30"
+><input type="button" title="a в нижнем индексе" value="&#x2090;" onClick="addLetter(15);" width="20" class="b30"
+><input type="button" title="e в нижнем индексе" value="&#x2091;" onClick="addLetter(16);" width="20" class="b30"
+><input type="button" title="i в нижнем индексе" value="&#7522;" onClick="addLetter(321);" width="20" class="b30"
+><input type="button" title="o в нижнем индексе" value="&#x2092;" onClick="addLetter(17);" width="20" class="b30"
+><input type="button" title="r в нижнем индексе" value="&#7523;" onClick="addLetter(322);" width="20" class="b30"
+><input type="button" title="u в нижнем индексе" value="&#7524;" onClick="addLetter(323);" width="20" class="b30"
+><input type="button" title="v в нижнем индексе" value="&#7525;" onClick="addLetter(324);" width="20" class="b30"
+><input type="button" title="x в нижнем индексе" value="&#x2093;" onClick="addLetter(18);" width="20" class="b30"
+><input type="button" title="бета в нижнем индексе" value="&#7526;" onClick="addLetter(325);" width="20" class="b30"
+><input type="button" title="гамма в нижнем индексе" value="&#7527;" onClick="addLetter(326);" width="20" class="b30"
+><input type="button" title="ро в нижнем индексе" value="&#7528;" onClick="addLetter(327);" width="20" class="b30"
+><input type="button" title="фи в нижнем индексе" value="&#7529;" onClick="addLetter(328);" width="20" class="b30"
+><input type="button" title="хи в нижнем индексе" value="&#7530;" onClick="addLetter(329);" width="20" class="b30"
+></td>
+</tr>
+<tr><td valign="baseline" class="mes">Верхние индексы:&nbsp;</td>
+<td valign="baseline">
+<input type="button" title="0 в верхнем индексе" value="&#x2070;" onClick="addLetter(20);" width="20" class="b30"
+><input type="button" title="1 в верхнем индексе" value="&sup1;" onClick="addLetter(21);" width="20" class="b30"
+><input type="button" title="2 в верхнем индексе" value="&sup2;" onClick="addLetter(22);" width="20" class="b30"
+><input type="button" title="3 в верхнем индексе" value="&sup3;" onClick="addLetter(23);" width="20" class="b30"
+><input type="button" title="4 в верхнем индексе" value="&#x2074;" onClick="addLetter(24);" width="20" class="b30"
+><input type="button" title="5 в верхнем индексе" value="&#x2075;" onClick="addLetter(25);" width="20" class="b30"
+><input type="button" title="6 в верхнем индексе" value="&#x2076;" onClick="addLetter(26);" width="20" class="b30"
+><input type="button" title="7 в верхнем индексе" value="&#x2077;" onClick="addLetter(27);" width="20" class="b30"
+><input type="button" title="8 в верхнем индексе" value="&#x2078;" onClick="addLetter(28);" width="20" class="b30"
+><input type="button" title="9 в верхнем индексе" value="&#x2079;" onClick="addLetter(29);" width="20" class="b30"
+><input type="button" title="плюс в верхнем индексе" value="&#x207A;" onClick="addLetter(30);" width="20" class="b30"
+><input type="button" title="минус в верхнем индексе" value="&#x207B;" onClick="addLetter(31);" width="20" class="b30"
+><input type="button" title="равно в верхнем индексе" value="&#x207C;" onClick="addLetter(32);" width="20" class="b30"
+><input type="button" title="левая скобка в верхнем индексе" value="&#x207D;" onClick="addLetter(33);" width="20" class="b30"
+><input type="button" title="правая скобка в верхнем индексе" value="&#x207E;" onClick="addLetter(34);" width="20" class="b30"
+><input type="button" title="A в верхнем индексе" value="&#7468;" onClick="addLetter(290);" width="20" class="b30"
+><input type="button" title="B в верхнем индексе" value="&#7470;" onClick="addLetter(291);" width="20" class="b30"
+><input type="button" title="D в верхнем индексе" value="&#7472;" onClick="addLetter(292);" width="20" class="b30"
+><input type="button" title="E в верхнем индексе" value="&#7473;" onClick="addLetter(293);" width="20" class="b30"
+><input type="button" title="G в верхнем индексе" value="&#7475;" onClick="addLetter(294);" width="20" class="b30"
+><input type="button" title="H в верхнем индексе" value="&#7476;" onClick="addLetter(295);" width="20" class="b30"
+><input type="button" title="I в верхнем индексе" value="&#7477;" onClick="addLetter(296);" width="20" class="b30"
+><input type="button" title="J в верхнем индексе" value="&#7478;" onClick="addLetter(297);" width="20" class="b30"
+><input type="button" title="K в верхнем индексе" value="&#7479;" onClick="addLetter(298);" width="20" class="b30"
+><input type="button" title="L в верхнем индексе" value="&#7480;" onClick="addLetter(299);" width="20" class="b30"
+><input type="button" title="M в верхнем индексе" value="&#7481;" onClick="addLetter(300);" width="20" class="b30"
+><input type="button" title="N в верхнем индексе" value="&#7482;" onClick="addLetter(301);" width="20" class="b30"
+><input type="button" title="O в верхнем индексе" value="&#7484;" onClick="addLetter(302);" width="20" class="b30"
+><input type="button" title="P в верхнем индексе" value="&#7486;" onClick="addLetter(303);" width="20" class="b30"
+><input type="button" title="R в верхнем индексе" value="&#7487;" onClick="addLetter(304);" width="20" class="b30"
+><input type="button" title="T в верхнем индексе" value="&#7488;" onClick="addLetter(305);" width="20" class="b30"
+><input type="button" title="U в верхнем индексе" value="&#7489;" onClick="addLetter(306);" width="20" class="b30"
+><input type="button" title="W в верхнем индексе" value="&#7490;" onClick="addLetter(307);" width="20" class="b30"
+><br
+><input type="button" title="a в верхнем индексе" value="&ordf;" onClick="addLetter(38);" width="20" class="b30"
+><input type="button" title="b в верхнем индексе" value="&#7495;" onClick="addLetter(221);" width="20" class="b30a"
+><input type="button" title="c в верхнем индексе" value="&#7580;" onClick="addLetter(320);" width="20" class="b30a"
+><input type="button" title="d в верхнем индексе" value="&#7496;" onClick="addLetter(222);" width="20" class="b30a"
+><input type="button" title="e в верхнем индексе" value="&#7497;" onClick="addLetter(220);" width="20" class="b30a"
+><input type="button" title="f в верхнем индексе" value="&#7584;" onClick="addLetter(308);" width="20" class="b30a"
+><input type="button" title="g в верхнем индексе" value="&#7586;" onClick="addLetter(309);" width="20" class="b30a"
+><input type="button" title="h в верхнем индексе" value="&#x2B0;" onClick="addLetter(199);" width="20" class="b30a"
+><input type="button" title="i в верхнем индексе" value="&#x2071;" onClick="addLetter(35);" width="20" class="b30a"
+><input type="button" title="j в верхнем индексе" value="&#x2B2;" onClick="addLetter(200);" width="20" class="b30a"
+><input type="button" title="k в верхнем индексе" value="&#7503;" onClick="addLetter(310);" width="20" class="b30a"
+><input type="button" title="l в верхнем индексе" value="&#x2E1;" onClick="addLetter(223);" width="20" class="b30a"
+><input type="button" title="m в верхнем индексе" value="&#7504;" onClick="addLetter(224);" width="20" class="b30a"
+><input type="button" title="n в верхнем индексе" value="&#x207F;" onClick="addLetter(36);" width="20" class="b30a"
+><input type="button" title="o в верхнем индексе" value="&ordm;" onClick="addLetter(201);" width="20" class="b30"
+><input type="button" title="p в верхнем индексе" value="&#7510;" onClick="addLetter(311);" width="20" class="b30"
+><input type="button" title="r в верхнем индексе" value="&#x2B3;" onClick="addLetter(202);" width="20" class="b30a"
+><input type="button" title="s в верхнем индексе" value="&#x2E2;" onClick="addLetter(225);" width="20" class="b30a"
+><input type="button" title="t в верхнем индексе" value="&#7511;" onClick="addLetter(226);" width="20" class="b30a"
+><input type="button" title="u в верхнем индексе" value="&#7512;" onClick="addLetter(312);" width="20" class="b30a"
+><input type="button" title="v в верхнем индексе" value="&#7515;" onClick="addLetter(313);" width="20" class="b30a"
+><input type="button" title="w в верхнем индексе" value="&#x2B7;" onClick="addLetter(203);" width="20" class="b30a"
+><input type="button" title="x в верхнем индексе" value="&#x2E3;" onClick="addLetter(205);" width="20" class="b30a"
+><input type="button" title="y в верхнем индексе" value="&#x2B8;" onClick="addLetter(204);" width="20" class="b30a"
+><input type="button" title="z в верхнем индексе" value="&#7611;" onClick="addLetter(314);" width="20" class="b30a"
+><input type="button" title="бета в верхнем индексе" value="&#7517;" onClick="addLetter(315);" width="20" class="b30a"
+><input type="button" title="гамма в верхнем индексе" value="&#7518;" onClick="addLetter(316);" width="20" class="b30a"
+><input type="button" title="дельта в верхнем индексе" value="&#7519;" onClick="addLetter(317);" width="20" class="b30a"
+><input type="button" title="фи в верхнем индексе" value="&#7520;" onClick="addLetter(318);" width="20" class="b30a"
+><input type="button" title="хи в верхнем индексе" value="&#7521;" onClick="addLetter(319);" width="20" class="b30a"
+><input type="button" title="кружочек в верхнем индексе (градусы)" value="&deg;" onClick="addLetter(37);" width="20" class="b30"
+><input type="button" title="штрих (минуты)" value="&prime;" onClick="addLetter(120);" width="20" class="b30"
+><input type="button" title="два штриха (секунды)" value="&Prime;" onClick="addLetter(121);" width="20" class="b30"
+><input type="button" title="три штриха" value="&#x2034;" onClick="addLetter(122);" width="20" class="b30a"
+><input type="button" title="четыре штриха" value="&#x2057;" onClick="addLetter(123);" width="20" class="b30a"
+></td></tr>
+<tr><td valign="center" class="mes">Операции, функции:&nbsp;</td>
+<td valign="baseline" colspan="2">
+<input type="button" title="плюс" value="+" onClick="addLetter(40);" width="20" class="b30"
+><input type="button" title="минус" value="&minus;" onClick="addLetter(41);" width="20" class="b30"
+><input type="button" title="делить" value="/" onClick="addLetter(42);" width="20" class="b30"
+><input type="button" title="умножить" value="&middot;" onClick="addLetter(43);" width="20" class="b30"
+><input type="button" title="умножить" value="&times;" onClick="addLetter(19);" width="20" class="b30"
+><input type="button" title="плюс-минус" value="&plusmn;" onClick="addLetter(44);" width="20" class="b30"
+><input type="button" title="минус-плюс" value="&#x2213;" onClick="addLetter(45);" width="20" class="b30"
+><input type="button" title="и" value="&and;" onClick="addLetter(46);" width="20" class="b30"
+><input type="button" title="или" value="&or;" onClick="addLetter(47);" width="20" class="b30"
+><input type="button" title="не" value="&not;" onClick="addLetter(48);" width="20" class="b30"
+><input type="button" title="и" value="&amp;" onClick="addLetter(124);" width="20" class="b30"
+><input type="button" title="пересечение" value="&cap;" onClick="addLetter(49);" width="20" class="b30"
+><input type="button" title="объединение" value="&cup;" onClick="addLetter(50);" width="20" class="b30"
+><input type="button" title="жирная точка по центру" value="&bull;" onClick="addLetter(51);" width="20" class="b30"
+><input type="button" title="композиция" value="&#x2218;" onClick="addLetter(52);" width="20" class="b30a"
+><input type="button" title="операция «звёздочка»" value="&#x2217;" onClick="addLetter(53);" width="20" class="b30a"
+><input type="button" title="дифференциал" value="&part;" onClick="addLetter(170);" width="20" class="b30"
+><input type="button" title="сумма" value="&sum;" onClick="addLetter(125);" width="20" class="b30"
+><input type="button" title="произведение" value="&prod;" onClick="addLetter(126);" width="20" class="b30"
+><input type="button" title="копроизведение" value="&#x2210;" onClick="addLetter(209);" width="20" class="b30a"
+><input type="button" title="набла" value="&nabla;" onClick="addLetter(208);" width="20" class="b30"
+><input type="button" title="интеграл" value="&int;" onClick="addLetter(127);" width="20" class="b30"
+><input type="button" title="двойной интеграл" value="&#x222C;" onClick="addLetter(128);" width="20" class="b30a"
+><input type="button" title="тройной интеграл" value="&#x222D;" onClick="addLetter(129);" width="20" class="b30a"
+><input type="button" title="интеграл по контуру" value="&#x222E;" onClick="addLetter(130);" width="20" class="b30a"
+><input type="button" title="двойной интеграл по контуру" value="&#x222F;" onClick="addLetter(131);" width="20" class="b30a"
+><input type="button" title="тройной интеграл по контуру" value="&#x2230;" onClick="addLetter(132);" width="20" class="b30a"
+><input type="button" title="корень" value="&radic;" onClick="addLetter(133);" width="20" class="b30"
+><input type="button" title="кубический корень" value="&#x221B;" onClick="addLetter(134);" width="20" class="b30a"
+><input type="button" title="корень четвёртой степени" value="&#x221C;" onClick="addLetter(135);" width="20" class="b30a"
+><input type="button" title="мнимая часть" value="&image;" onClick="addLetter(206);" width="20" class="b30"
+><input type="button" title="действительная часть" value="&real;" onClick="addLetter(207);" width="20" class="b30"
+><input type="button" title="функция Вейерштрасса" value="&weierp;" onClick="addLetter(227);" width="20" class="b30"
+><input type="button" title="левая скобка целой части 'вниз'" value="&lfloor;" onClick="addLetter(260);" width="20" class="b30"
+><input type="button" title="правая скобка целой части 'вниз'" value="&rfloor;" onClick="addLetter(261);" width="20" class="b30"
+><input type="button" title="левая скобка целой части 'вверх'" value="&lceil;" onClick="addLetter(262);" width="20" class="b30"
+><input type="button" title="правая скобка целой части 'вверх'" value="&rceil;" onClick="addLetter(263);" width="20" class="b30"
+><input type="button" title="левая угловая скобка" value="&lang;" onClick="addLetter(264);" width="20" class="b30"
+><input type="button" title="правая угловая скобка" value="&rang;" onClick="addLetter(265);" width="20" class="b30"
+></td></tr>
+<tr><td class="mes" valign="baseline">Отношения:</td>
+<td colspan="3" valign="baseline">
+<input type="button" title="равно" value="=" onClick="addLetter(136);" width="20" class="b30"
+><input type="button" title="меньше" value="&lt;" onClick="addLetter(138);" width="20" class="b30"
+><input type="button" title="больше" value="&gt;" onClick="addLetter(139);" width="20" class="b30"
+><input type="button" title="меньше или равно" value="&le;" onClick="addLetter(140);" width="20" class="b30"
+><input type="button" title="больше или равно" value="&ge;" onClick="addLetter(141);" width="20" class="b30"
+><input type="button" title="много меньше" value="&#x226A;" onClick="addLetter(228);" width="20" class="b30a"
+><input type="button" title="много больше" value="&#x226B;" onClick="addLetter(229);" width="20" class="b30a"
+><input type="button" title="эквивалентно" value="&sim;" onClick="addLetter(161);" width="20" class="b30"
+><input type="button" title="приблизительно равно" value="&asymp;" onClick="addLetter(146);" width="20" class="b30"
+><input type="button" title="конгруэнтно, приблизительно равно" value="&#x2243;" onClick="addLetter(162);" width="20a" class="b30a"
+><input type="button" title="тождественно равно, сравнимо" value="&equiv;" onClick="addLetter(147);" width="20" class="b30"
+><input type="button" title="элемент содержится" value="&isin;" onClick="addLetter(149);" width="20" class="b30"
+><input type="button" title="содержит элемент" value="&#x220B;" onClick="addLetter(150);" width="20" class="b30a"
+><input type="button" title="включается" value="&sub;" onClick="addLetter(153);" width="20" class="b30"
+><input type="button" title="включает" value="&sup;" onClick="addLetter(154);" width="20" class="b30"
+><input type="button" title="включается или равно" value="&sube;" onClick="addLetter(155);" width="20" class="b30"
+><input type="button" title="включает или равно" value="&supe;" onClick="addLetter(156);" width="20" class="b30"
+><input type="button" title="делится" value="&#x205D;" onClick="addLetter(157);" width="20" class="b30a"
+><input type="button" title="делит" value="|" onClick="addLetter(158);" width="20" class="b30"
+><input type="button" title="параллельно" value="&#x2225;" onClick="addLetter(56);" width="20" class="b30a"
+><input type="button" title="не равно" value="&ne;" onClick="addLetter(137);" width="20" class="b30"
+><input type="button" title="меньше и не равно" value="&#x2268;" onClick="addLetter(144);" width="20" class="b30a"
+><input type="button" title="больше и не равно" value="&#x2269;" onClick="addLetter(145);" width="20" class="b30a"
+><input type="button" title="меньше или равно 2" value="&#x2266;" onClick="addLetter(142);" width="20" class="b30a"
+><input type="button" title="больше или равно 2" value="&#x2267;" onClick="addLetter(143);" width="20" class="b30a"
+><input type="button" title="приблизительно меньше" value="&#x2272;" onClick="addLetter(230);" width="20" class="b30a"
+><input type="button" title="приблизительно больше" value="&#x2273;" onClick="addLetter(231);" width="20" class="b30a"
+><input type="button" title="неэквивалентно" value="&#x2241;" onClick="addLetter(218);" width="20" class="b30a"
+><input type="button" title="приблизительно неравно" value="&#x2249;" onClick="addLetter(219);" width="20" class="b30a"
+><input type="button" title="конгруэнтно, приблизительно равно" value="&cong;" onClick="addLetter(163);" width="20" class="b30"
+><input type="button" title="не сравнимо" value="&#x2262;" onClick="addLetter(148);" width="20" class="b30a"
+><input type="button" title="элемент не содержится" value="&#x2209;" onClick="addLetter(151);" width="20" class="b30a"
+><input type="button" title="не содержит элемент" value="&#x220C;" onClick="addLetter(152);" width="20" class="b30a"
+><input type="button" title="не включается" value="&#x2284;" onClick="addLetter(268);" width="20" class="b30a"
+><input type="button" title="не включает" value="&#x2285;" onClick="addLetter(269);" width="20" class="b30a"
+><input type="button" title="включается и не равно" value="&#x228A;" onClick="addLetter(270);" width="20" class="b30a"
+><input type="button" title="включает и не равно" value="&#x228B;" onClick="addLetter(271);" width="20" class="b30a"
+><input type="button" title="подобно" value="&#x223E;" onClick="addLetter(54);" width="20" class="b30a"
+><input type="button" title="не делит" value="&#x2224;" onClick="addLetter(159);" width="20" class="b30a"
+><input type="button" title="непараллельно" value="&#x2226;" onClick="addLetter(57);" width="20" class="b30a"
+><input type="button" title="перпендикулярно" value="&perp;" onClick="addLetter(160);" width="20" class="b30"
+></td></tr>
+<tr><td class="mes" valign="baseline">Стрелки:</td>
+<td valign="baseline">
+<input type="button" value="&larr;" onClick="addLetter(164);" width="20" class="b30"
+><input type="button" value="&rarr;" onClick="addLetter(165);" width="20" class="b30"
+><input type="button" value="&harr;" onClick="addLetter(166);" width="20" class="b30"
+><input type="button" value="&uarr;" onClick="addLetter(167);" width="20" class="b30"
+><input type="button" value="&darr;" onClick="addLetter(168);" width="20" class="b30"
+><input type="button" value="&#x2195;" onClick="addLetter(169);" width="20" class="b30a"
+><input type="button" value="&#x2196;" onClick="addLetter(210);" width="20" class="b30a"
+><input type="button" value="&#x2197;" onClick="addLetter(211);" width="20" class="b30a"
+><input type="button" value="&#x2198;" onClick="addLetter(212);" width="20" class="b30a"
+><input type="button" value="&#x2199;" onClick="addLetter(213);" width="20" class="b30a"
+><input type="button" value="&#x21A4;" onClick="addLetter(214);" width="20" class="b30a"
+><input type="button" value="&#x21A6;" onClick="addLetter(215);" width="20" class="b30a"
+><input type="button" value="&#x21A5;" onClick="addLetter(216);" width="20" class="b30a"
+><input type="button" value="&#x21A7;" onClick="addLetter(217);" width="20" class="b30a"
+><input type="button" value="&lArr;" onClick="addLetter(232);" width="20" class="b30"
+><input type="button" value="&rArr;" onClick="addLetter(233);" width="20" class="b30"
+><input type="button" value="&hArr;" onClick="addLetter(234);" width="20" class="b30"
+><input type="button" value="&uArr;" onClick="addLetter(235);" width="20" class="b30"
+><input type="button" value="&dArr;" onClick="addLetter(236);" width="20" class="b30"
+><input type="button" value="&#x21D5;" onClick="addLetter(237);" width="20" class="b30a"
+><input type="button" value="&#x21D6;" onClick="addLetter(238);" width="20" class="b30a"
+><input type="button" value="&#x21D7;" onClick="addLetter(239);" width="20" class="b30a"
+><input type="button" value="&#x21D8;" onClick="addLetter(240);" width="20" class="b30a"
+><input type="button" value="&#x21D9;" onClick="addLetter(241);" width="20" class="b30a"
+><input type="button" value="&#x2906;" onClick="addLetter(248);" width="20" class="b30a"
+><input type="button" value="&#x2907;" onClick="addLetter(249);" width="20" class="b30a"
+></td></tr>
+<tr><td class="mes" valign="center">Числа,&nbsp;множества,&nbsp;<br>разные знаки:</td>
+<td valign="baseline"
+><input type="button" title="рукописная f" value="&fnof;" onClick="addLetter(171);" width="20" class="b30"
+><input type="button" title="постоянная Планка" value="&#x127;" onClick="addLetter(172);" width="20" class="b30a"
+><input type="button" title="рукописная l" value="&#x2113;" onClick="addLetter(173);" width="20" class="b30a"
+><input type="button" title="многоточие" value="&hellip;" onClick="addLetter(242);" width="20" class="b30"
+><input type="button" title="многоточие" value="&#x22EF;" onClick="addLetter(243);" width="20" class="b30a"
+><input type="button" title="многоточие" value="&#x22EE;" onClick="addLetter(244);" width="20" class="b30a"
+><input type="button" title="многоточие" value="&#x22F1;" onClick="addLetter(246);" width="20" class="b30a"
+><input type="button" title="многоточие" value="&#x22F0;" onClick="addLetter(245);" width="20" class="b30a"
+><input type="button" title="дробная черта (для сборки из индексов)" value="&frasl;" onClick="addLetter(174);" width="20" class="b30"
+><input type="button" title="одна вторая" value="&frac12;" onClick="addLetter(175);" width="20" class="b30"
+><input type="button" title="одна третья" value="&#x2153;" onClick="addLetter(176);" width="20" class="b30a"
+><input type="button" title="две третьи" value="&#x2154;" onClick="addLetter(177);" width="20" class="b30a"
+><input type="button" title="одна четвёртая" value="&frac14;" onClick="addLetter(178);" width="20" class="b30"
+><input type="button" title="три четвёртые" value="&frac34;" onClick="addLetter(179);" width="20" class="b30"
+><input type="button" title="одна пятая" value="&#x2155;" onClick="addLetter(180);" width="20" class="b30a"
+><input type="button" title="две пятые" value="&#x2156;" onClick="addLetter(181);" width="20" class="b30a"
+><input type="button" title="три пятые" value="&#x2157;" onClick="addLetter(182);" width="20" class="b30a"
+><input type="button" title="четыре пятые" value="&#x2158;" onClick="addLetter(183);" width="20" class="b30a"
+><input type="button" title="одна шестая" value="&#x2159;" onClick="addLetter(184);" width="20" class="b30a"
+><input type="button" title="пять шестых" value="&#x215A;" onClick="addLetter(185);" width="20" class="b30a"
+><input type="button" title="треугольник" value="&#x25B3;" onClick="addLetter(55);" width="20" class="b30a"
+><input type="button" title="угол" value="&ang;" onClick="addLetter(186);" width="20" class="b30"
+><input type="button" title="измеренный угол" value="&#x2221;" onClick="addLetter(187);" width="20" class="b30a"
+><input type="button" title="измеренный угол" value="&#x2222;" onClick="addLetter(188);" width="20" class="b30a"
+><input type="button" title="квантор всеобщности" value="&forall;" onClick="addLetter(189);" width="20" class="b30"
+><input type="button" title="квантор существования" value="&exist;" onClick="addLetter(190);" width="20" class="b30"
+><input type="button" title="не существует" value="&#x2204;" onClick="addLetter(247);" width="20" class="b30a"
+><input type="button" title="пустое множество, диаметр" value="&empty;" onClick="addLetter(191);" width="20" class="b30"
+><input type="button" title="множество натуральных чисел" value="&#x2115;" onClick="addLetter(192);" width="20" class="b30a"
+><input type="button" title="множество целых чисел" value="&#x2124;" onClick="addLetter(193);" width="20" class="b30a"
+><input type="button" title="множество рациональных чисел" value="&#x211A;" onClick="addLetter(194);" width="20" class="b30a"
+><input type="button" title="множество действительных чисел" value="&#x211D;" onClick="addLetter(195);" width="20" class="b30a"
+><input type="button" title="множество комплексных чисел" value="&#x2102;" onClick="addLetter(196);" width="20" class="b30a"
+><input type="button" title="алеф" value="&#x2135;" onClick="addLetter(197);" width="20" class="b30a"
+><input type="button" title="бесконечность" value="&infin;" onClick="addLetter(198);" width="20" class="b30"
+><input type="button" title="неразрывный пробел" value="&nbsp;" onClick="addLetter(256);" width="20" class="b30"
+><input type="button" title="ангстрем" value="&Aring;" onClick="addLetter(257);" width="20" class="b30"
+><input type="button" title="промилле" value="&permil;" onClick="addLetter(258);" width="20" class="b30"
+><input type="button" title="тире" value="—" onClick="addLetter(259);" width="20" class="b30"
+><input type="button" title="левая кавычка" value="&laquo;" onClick="addLetter(266);" width="20" class="b30"
+><input type="button" title="правая кавычка" value="&raquo;" onClick="addLetter(267);" width="20" class="b30"
+></td></tr>
+</td></tr>
+<tr><td valign="baseline" class="mes">Греческие буквы:</td>
+<td valign="baseline">
+<input type="button" title="альфа" value="&alpha;" onClick="addLetter(60);" width="20" class="b30"
+><input type="button" title="бета" value="&beta;" onClick="addLetter(61);" width="20" class="b30"
+><input type="button" title="гамма" value="&gamma;" onClick="addLetter(62);" width="20" class="b30"
+><input type="button" title="дельта" value="&delta;" onClick="addLetter(63);" width="20" class="b30"
+><input type="button" title="эпсилон" value="&epsilon;" onClick="addLetter(64);" width="20" class="b30"
+><input type="button" title="дзета" value="&zeta;" onClick="addLetter(65);" width="20" class="b30"
+><input type="button" title="эта" value="&eta;" onClick="addLetter(66);" width="20" class="b30"
+><input type="button" title="тета" value="&theta;" onClick="addLetter(86);" width="20" class="b30"
+><input type="button" title="йота" value="&iota;" onClick="addLetter(68);" width="20" class="b30"
+><input type="button" title="каппа" value="&#x3F0;" onClick="addLetter(69);" width="20" class="b30a"
+><input type="button" title="лямбда" value="&lambda;" onClick="addLetter(70);" width="20" class="b30"
+><input type="button" title="мю" value="&mu;" onClick="addLetter(71);" width="20" class="b30"
+><input type="button" title="ню" value="&nu;" onClick="addLetter(72);" width="20" class="b30"
+><input type="button" title="кси" value="&xi;" onClick="addLetter(73);" width="20" class="b30"
+><input type="button" title="омикрон" value="&omicron;" onClick="addLetter(74);" width="20" class="b30"
+><input type="button" title="пи" value="&pi;" onClick="addLetter(75);" width="20" class="b30"
+><input type="button" title="ро" value="&rho;" onClick="addLetter(76);" width="20" class="b30"
+><input type="button" title="сигма" value="&sigma;" onClick="addLetter(77);" width="20" class="b30"
+><input type="button" title="тау" value="&tau;" onClick="addLetter(78);" width="20" class="b30"
+><input type="button" title="ипсилон" value="&upsilon;" onClick="addLetter(79);" width="20" class="b30"
+><input type="button" title="фи" value="&phi;" onClick="addLetter(80);" width="20" class="b30"
+><input type="button" title="хи" value="&chi;" onClick="addLetter(81);" width="20" class="b30"
+><input type="button" title="пси" value="&psi;" onClick="addLetter(82);" width="20" class="b30"
+><input type="button" title="омега" value="&omega;" onClick="addLetter(83);" width="20" class="b30"
+><input type="button" title="тета2" value="&thetasym;" onClick="addLetter(67);" width="20" class="b30"
+><input type="button" title="каппа2" value="&kappa;" onClick="addLetter(84);" width="20" class="b30"
+><input type="button" title="пи2" value="&piv;" onClick="addLetter(87);" width="20" class="b30"
+><input type="button" title="ро2" value="&#x3F1;" onClick="addLetter(88);" width="20" class="b30a"
+><input type="button" title="концевая сигма" value="&sigmaf;" onClick="addLetter(85);" width="20" class="b30"><br
+><input type="button" title="Альфа" value="&Alpha;" onClick="addLetter(90);" width="20" class="b30"
+><input type="button" title="Бета" value="&Beta;" onClick="addLetter(91);" width="20" class="b30"
+><input type="button" title="Гамма" value="&Gamma;" onClick="addLetter(92);" width="20" class="b30"
+><input type="button" title="Дельта" value="&Delta;" onClick="addLetter(93);" width="20" class="b30"
+><input type="button" title="Эпсилон" value="&Epsilon;" onClick="addLetter(94);" width="20" class="b30"
+><input type="button" title="Дзета" value="&Zeta;" onClick="addLetter(95);" width="20" class="b30"
+><input type="button" title="Эта" value="&Eta;" onClick="addLetter(96);" width="20" class="b30"
+><input type="button" title="Тета" value="&Theta;" onClick="addLetter(97);" width="20" class="b30"
+><input type="button" title="Йота" value="&Iota;" onClick="addLetter(98);" width="20" class="b30"
+><input type="button" title="Каппа" value="&Kappa;" onClick="addLetter(99);" width="20" class="b30"
+><input type="button" title="Лямбда" value="&Lambda;" onClick="addLetter(100);" width="20" class="b30"
+><input type="button" title="Мю" value="&Mu;" onClick="addLetter(101);" width="20" class="b30"
+><input type="button" title="Ню" value="&Nu;" onClick="addLetter(102);" width="20" class="b30"
+><input type="button" title="Кси" value="&Xi;" onClick="addLetter(103);" width="20" class="b30"
+><input type="button" title="Омикрон" value="&Omicron;" onClick="addLetter(104);" width="20" class="b30"
+><input type="button" title="Пи" value="&Pi;" onClick="addLetter(105);" width="20" class="b30"
+><input type="button" title="Ро" value="&Rho;" onClick="addLetter(106);" width="20" class="b30"
+><input type="button" title="Сигма" value="&Sigma;" onClick="addLetter(107);" width="20" class="b30"
+><input type="button" title="Тау" value="&Tau;" onClick="addLetter(108);" width="20" class="b30"
+><input type="button" title="Ипсилон" value="&#x3D2;" onClick="addLetter(109);" width="20" class="b30"
+><input type="button" title="Фи" value="&Phi;" onClick="addLetter(110);" width="20" class="b30"
+><input type="button" title="Хи" value="&Chi;" onClick="addLetter(111);" width="20" class="b30"
+><input type="button" title="Пси" value="&Psi;" onClick="addLetter(112);" width="20" class="b30"
+><input type="button" title="Омега" value="&Omega;" onClick="addLetter(113);" width="20" class="b30"
+></td></tr>
+</table>
+</td>
+</tr>
+</table><br>
+<table width="900" cellspacing="0" cellpadding="3" border="0" id="preview_tab">
+<tr><td style="width:100%!important" align="left"><span class="pre" id="preview"></span></td></tr>
+</table>
+</center>
+
+<div id="test"></div>
+
+</body>
+
+</html>
